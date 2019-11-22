@@ -1,4 +1,7 @@
 ------------------------------------------------------------
+Search Online Movie Database for: Ben Hur
+------------------------------------------------------------
+
 Movie Title           : Ben Hur
 Year Released         : 2010
 IMDB rating           : 6.3
@@ -7,3 +10,93 @@ Production Location(s): UK, Germany, Spain, Canada, USA
 Language              : English
 Plot                  : A young Jewish prince seeks revenge after an old friend wrongly imprisons him and his family.
 Actors                : Joseph Morgan, Stephen Campbell Moore, Emily VanCamp, Kristin Kreuk
+------------------------------------------------------------
+Search Online Movie Database for: the matrix
+------------------------------------------------------------
+
+Movie Title           : The Matrix
+Year Released         : 1999
+IMDB rating           : 8.7
+Rotten Tomatoe rating : 88%
+Production Location(s): USA
+Language              : English
+Plot                  : A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.
+Actors                : Keanu Reeves, Laurence Fishburne, Carrie-Anne Moss, Hugo Weaving
+------------------------------------------------------------
+Search Spotify for: memories
+------------------------------------------------------------
+
+Artist                 : Maroon 5
+Song name              : memories
+Preview Link           : Not available
+Album                  : Memories
+------------------------------------------------------------
+Search Bands-In-Town for: celine dion
+------------------------------------------------------------
+
+Venue                 : Bell Centre
+Location              : Montreal, Canada
+Date                  : 11/22/2019
+
+------------------------------------------------------------
+
+Venue                 : United Center
+Location              : Chicago, IL
+Date                  : 12/01/2019
+
+------------------------------------------------------------
+
+Venue                 : Bankers Life Fieldhouse
+Location              : Indianapolis, IN
+Date                  : 12/03/2019
+
+------------------------------------------------------------
+
+Venue                 : KeyBank Center
+Location              : Buffalo, NY
+Date                  : 12/05/2019
+
+------------------------------------------------------------
+
+Venue                 : Times Union Center
+Location              : Albany, NY
+Date                  : 12/07/2019
+------------------------------------------------------------
+Search Bands-In-Town for: marc anthony
+------------------------------------------------------------
+
+Venue                 : AmericanAirlines Arena
+Location              : Miami, FL
+Date                  : 11/22/2019
+
+------------------------------------------------------------
+
+Venue                 : AmericanAirlines Arena
+Location              : Miami, FL
+Date                  : 11/23/2019
+
+------------------------------------------------------------
+
+Venue                 : Hertz Arena
+Location              : Estero, FL
+Date                  : 11/24/2019
+
+------------------------------------------------------------
+
+Venue                 : Coliseo de Puerto Rico
+Location              : San Juan, Puerto Rico
+Date                  : 12/15/2019
+
+------------------------------------------------------------
+
+Venue                 : Agganis Arena
+Location              : Boston, MA
+Date                  : 01/16/2020
+------------------------------------------------------------
+Search Spotify for: I Want it That Way
+------------------------------------------------------------
+
+Artist                 : Backstreet Boys
+Song name              : I Want it That Way
+Preview Link           : Not available
+Album                  : The Hits--Chapter One
