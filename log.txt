@@ -1,17 +1,9 @@
 ------------------------------------------------------------
-                    Movie Title             : The Notebook
-                    Year Released           : 2004
-                    IMDB rating             : 7.8
-                    Produced in             : USA
-                    Language                : English
-                    Plot                    : A poor yet passionate young man falls in love with a rich young woman, giving her a sense of freedom, but they are soon separated because of their social differences.
-                    Actors                  : Tim Ivey, Gena Rowlands, Starletta DuPois, James Garner
-                    ------------------------------------------------------------
-                    Movie Title             : Gladiator
-                    Year Released           : 2000
-                    IMDB rating             : 8.5
-                    Produced in             : USA, UK, Malta, Morocco
-                    Language                : English
-                    Plot                    : A former Roman General sets out to exact vengeance against the corrupt emperor who murdered his family and sent him into slavery.
-                    Actors                  : Russell Crowe, Joaquin Phoenix, Connie Nielsen, Oliver Reed
-                    
+Movie Title           : Ben Hur
+Year Released         : 2010
+IMDB rating           : 6.3
+Rotten Tomatoe rating : Not available
+Production Location(s): UK, Germany, Spain, Canada, USA
+Language              : English
+Plot                  : A young Jewish prince seeks revenge after an old friend wrongly imprisons him and his family.
+Actors                : Joseph Morgan, Stephen Campbell Moore, Emily VanCamp, Kristin Kreuk
