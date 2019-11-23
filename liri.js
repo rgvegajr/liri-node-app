@@ -28,8 +28,7 @@ for (let i = 3; i < nodeArgs.length; i++) {
     if (i > 3 && i < nodeArgs.length) {
         searchTerm = searchTerm + "+" + nodeArgs[i];
         term = term + " " + nodeArgs[i];
-    }
-    else {
+    } else {
         searchTerm += nodeArgs[i];
         term += nodeArgs[i];
     }
@@ -46,29 +45,26 @@ function bit(searchTerm, term) {
     });
     axios.get("https://rest.bandsintown.com/artists/" + searchTerm + "/events?app_id=codingbootcamp")
         .then(function(response) {
-            // console.log("Response length = " + response.data.length);
-            // for (let i = 0; i < response.data.length; i++) {
             if (response.data.length == 0) {
                 console.log("No concerts available for this band.");
                 console.log(divider);
                 return false;
-            }
+            };
             for (let i = 0; i < 5; i++) { //limit resonse to 5
+                if (response.data[i].venue == undefined) {
+                    console.log("No concerts available for this band.");
+                    return true;
+                }
                 console.log("Venue: " + response.data[i].venue.name);
-                // let concertData = {};
                 let location = "";
-                // concertData.venue = `Venue                 : ${response.data[i].venue.name}`
                 if (response.data[i].venue.region == '') {
                     console.log("Location: " + response.data[i].venue.city + ", " + response.data[i].venue.country);
                     location = response.data[i].venue.city + ", " + response.data[i].venue.country;
-                }
-                else {
+                } else {
                     console.log("Location: " + response.data[i].venue.city + ", " + response.data[i].venue.region);
-                    // concertData.location = `Location              : ${response.data[i].venue.city} , ${response.data[i].venue.region}`
                     location = response.data[i].venue.city + ", " + response.data[i].venue.region;
                 };
                 console.log("Date: " + moment(response.data[i].datetime).format('MM/DD/YYYY'));
-                // concertData.date = `Date                : ${moment(response.data[i].datetime).format('MM/DD/YYYY')}`
 
                 const concertData = `
 Venue                 : ${response.data[i].venue.name}
@@ -82,18 +78,18 @@ Date                  : ${moment(response.data[i].datetime).format('MM/DD/YYYY')
             }
         }).catch(function(error) {
             if (error.response) {
+                console.log("Band does not exist in the database.");
+                return false;
                 // The request was made and the server responded with a status code
                 // that falls out of the range of 2xx
                 console.log(error.response.data);
                 console.log(error.response.status);
                 console.log(error.response.headers);
-            }
-            else if (error.request) {
+            } else if (error.request) {
                 // The request was made but no response was received
                 // `error.request` is an object that comes back with details pertaining to the error that occurred.
                 console.log(error.request);
-            }
-            else {
+            } else {
                 // Something happened in setting up the request that triggered an Error
                 console.log("Error", error.message);
             }
@@ -104,61 +100,79 @@ Date                  : ${moment(response.data[i].datetime).format('MM/DD/YYYY')
 //funtion using spotify api
 function song(searchTerm, term) {
     // Artist(s),  The song's name, A preview link of the song from Spotify, The album that the song is from, If no song is provided then your program will default to "The Sign" by Ace of Base.
-    console.log(divider);
-    console.log("Search Spotify for: " + term);
-    console.log(divider);
-    fs.appendFile("log.txt", dividerWRtn + "Search Spotify for: " + term, err => {
-        if (err) throw err;
-    });
-    let spotifyClient = new spotify({
-        id: process.env.SPOTIFY_ID,
-        secret: process.env.SPOTIFY_SECRET
-    });
     let artist = "";
     let song = "";
     let preview = "";
     let album = "";
-    // spotifyClient.search({ type: 'track', query: 'All the Small Things', limit: '1' }, function(err, data) {
-    spotifyClient.search({ type: 'track', query: searchTerm, limit: '1' }, function(err, data) {
-        if (err) {
-            return console.log('Error occurred: ' + err);
-        }
-        if (data.tracks.length == 0) {
-            console.log("Artist = Ace of Base");
-            console.log("Song name = The Sign");
-            console.log("Preview link:  Not Available");
-            console.log("Album = The Sign");
-            console.log(divider);
-            artist = "Ace of Base";
-            song = "The Sign";
-            preview = "Not available";
-            album = "The Sign";
-        }
-        else {
+    //if no song entered, return default
+    if (searchTerm == []) {
+        console.log(divider);
+        console.log("Search song not entered, returning default “The Sign” by Ace of Base.");
+        console.log(dividerWRtn);
+        console.log("Artist = Ace of Base");
+        console.log("Song name = The Sign");
+        console.log("Preview link:  https://open.spotify.com/album/0nQFgMfnmWrcWDOQqIgJL7");
+        console.log("Album = The Sign");
+        console.log(divider);
+        artist = "Ace of Base";
+        song = "The Sign";
+        preview = "Not available";
+        album = "The Sign";
+        fs.appendFile("log.txt", dividerWRtn + "Default song: The Sign " + term, err => {
+            if (err) throw err;
+        });
+        //non-standard code formatting used to support desired output format
+        const songData = `
+    Artist                 : ${artist}
+    Song name              : ${song}
+    Preview Link           : ${preview}
+    Album                  : ${album}
+    `;
+        //write to log.txt file
+        fs.appendFile("log.txt", rtn + divider + songData, err => {
+            if (err) throw err;
+        });
+    } else { //song entered, search spotify
+        console.log(divider);
+        console.log("Search Spotify for: " + term);
+        console.log(divider);
+        fs.appendFile("log.txt", dividerWRtn + "Search Spotify for: " + term, err => {
+            if (err) throw err;
+        });
+        let spotifyClient = new spotify({
+            id: process.env.SPOTIFY_ID,
+            secret: process.env.SPOTIFY_SECRET
+        });
+        // spotifyClient.search({ type: 'track', query: 'All the Small Things', limit: '1' }, function(err, data) {
+        spotifyClient.search({ type: 'track', query: searchTerm, limit: '1' }, function(err, data) {
+            if (err) {
+                return console.log('Error occurred: ' + err);
+            }
             console.log("Artist = " + data.tracks.items[0].album.artists[0].name);
             console.log("Song name = " + term);
-            if (data.tracks.items[0].album.artists[0].preview_url == undefined) {
-                data.tracks.items[0].album.artists[0].preview_url = "Not available"
+            if (data.tracks.items[0].external_urls.spotify == undefined) {
+                data.tracks.items[0].external_urls.spotify = "Not available";
             }
-            console.log("Preview link:  " + data.tracks.items[0].album.artists[0].preview_url);
+            console.log("Preview link:  " + data.tracks.items[0].external_urls.spotify);
             console.log("Album = " + data.tracks.items[0].album.name);
             console.log(divider);
             artist = data.tracks.items[0].album.artists[0].name;
             song = term;
-            preview = data.tracks.items[0].album.artists[0].preview_url;
+            preview = data.tracks.items[0].external_urls.spotify;
             album = data.tracks.items[0].album.name;
-        }
-        const songData = `
-Artist                 : ${artist}
-Song name              : ${song}
-Preview Link           : ${preview}
-Album                  : ${album}
-`;
-        console.log(divider);
-        fs.appendFile("log.txt", rtn + dividerWRtn + songData, err => {
-            if (err) throw err;
+            //non-standard code formatting used to support desired output format
+            const songData = `
+    Artist                 : ${artist}
+    Song name              : ${song}
+    Preview Link           : ${preview}
+    Album                  : ${album}
+    `;
+            //write to log.txt file
+            fs.appendFile("log.txt", rtn + divider + songData, err => {
+                if (err) throw err;
+            });
         });
-    });
+    }; //end of else 
 }
 
 //function using movie database api OMDB
@@ -171,6 +185,10 @@ function movie(searchTerm, term) {
     });
     axios.get("http://www.omdbapi.com/?t=" + searchTerm + "&y=&plot=short&apikey=trilogy").then(
         function(response) {
+            if (response.data.Ratings == undefined) {
+                console.log("Movie not found.");
+                return false;
+            }
             let ratings = response.data.Ratings;
             let index;
             let rtrExists;
@@ -214,13 +232,11 @@ Actors                : ${response.data.Actors}
             console.log(error.response.status);
             console.log("---------------Status---------------");
             console.log(error.response.headers);
-        }
-        else if (error.request) {
+        } else if (error.request) {
             // The request was made but no response was received
             // `error.request` is an object that comes back with details pertaining to the error that occurred.
             console.log(error.request);
-        }
-        else {
+        } else {
             // Something happened in setting up the request that triggered an Error
             console.log("Error", error.message);
         }
@@ -235,6 +251,12 @@ if (process.argv[2] == "concert-this") {
     //     Name of the venue
     //     Venue location
     //     Date of the Event (use moment to format this as “MM/DD/YYYY”)
+    //verify non-empty search term and if empty, use defaults
+    if (searchTerm == []) {
+        console.log("Please enter band to search for.");
+        return false;
+    };
+    console.log("direct call searchTerm =start:" + searchTerm + ":end");
     bit(searchTerm, term);
 }
 
@@ -262,6 +284,11 @@ if (process.argv[2] == "movie-this") {
     //    * Actors in the movie.
     //    If the user doesn’t type a movie in, the program will output data for the movie ‘Mr. Nobody.’
     // Then run a request with axios to the OMDB API with the movie specified
+    if (searchTerm == []) {
+        console.log("Search movie not entered, returning default.");
+        searchTerm = "Mr. Nobody";
+        term = "Mr. Nobody";
+    };
     movie(searchTerm, term);
 }
 
@@ -275,15 +302,21 @@ if (process.argv[2] == "do-what-it-says") {
         if (error) {
             return console.log(error);
         }
-        // We will then print the contents of data
-        // console.log(data);
         // Then split it by commas (to make it more readable)
         const dataArr = data.split(",");
 
-        // Create an empty variable for holding the movie name
-        let arr = (new Function("return [" + dataArr[1] + "]")());
-        let searchTerm = dataArr[1];
-        let term = arr[0];
+        // Create an empty variable  for holding the searchterms
+        for (let i = 1; i < dataArr.length; i++) {
+            if (i > 1 && i < dataArr.length) {
+                searchTerm = searchTerm + "+" + dataArr[i];
+                term = term + " " + dataArr[i];
+            } else {
+                searchTerm += dataArr[i];
+                term += dataArr[i];
+            }
+        };
+        term = term.replace(/['"]+/g, ''); //remove quotes
+        searchTerm = searchTerm.replace(/['"]+/g, ''); //remove quotes
         if (dataArr[0] == "concert-this") {
             // node liri.js concert-this <artist/band name here>
             //     This will search the Bands in Town Artist Events API ("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp") for an artist and render the following information about each event to the terminal:
@@ -301,13 +334,3 @@ if (process.argv[2] == "do-what-it-says") {
         }
     });
 }
-
-
-//BONUS:
-//    In addition to logging the data to your terminal/bash window, output the data to a .txt file called log.txt.
-//    Make sure you append each command you run to the log.txt file.
-//    Do not overwrite your file each time you run a command.
-// fs.appendFile("log.txt", showData + divider, err => {
-//     if (err) throw err;
-//     console.log(showData);
-// });
